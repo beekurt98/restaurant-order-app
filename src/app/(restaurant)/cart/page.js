@@ -21,7 +21,7 @@ export default function Cart() {
             <img src={cartObj[x]?.img} alt={cartObj[x]?.name} />
             <div>
               <h3>{cartObj[x]?.name}</h3>
-              <p>Fiyat: {cartObj[x]?.price} ₺</p>
+              <p>Fiyat: {cartObj[x]?.price} $</p>
               <div className="cart-item-price">
                 <button
                   onClick={() => handleQuantityDecrease(cartObj[x])}
@@ -36,7 +36,7 @@ export default function Cart() {
         ))}
       </div>
       <div className="price-info">
-        Toplam Fiyat : ₺{totalPrice}
+        Toplam Fiyat : ${totalPrice}
       </div>
       <Link href="/checkout">Order</Link>
     </>

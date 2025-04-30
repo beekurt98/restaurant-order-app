@@ -5,3 +5,27 @@
   --light: #A3B18A;
   --lightest: #DAD7CD;
 }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.navbar {
+  background-color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 30px;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+
+  a {
+    color: var(--lightest);
+    text-decoration: none;
+  }
+}
