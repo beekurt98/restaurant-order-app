@@ -79,7 +79,7 @@ export default function CartProvider({ children }) {
           id: item.id,
           quantity: 1,
           price: item.price,
-          img: item.img,
+          img: item.img_url,
         };
       }
     });
@@ -93,8 +93,9 @@ export default function CartProvider({ children }) {
   function calculatePrice() {
     let fullPrice = 0;
     cart.forEach((x) => (fullPrice += x.price));
-    setTotalPrice(fullPrice);
-    return fullPrice;
+    let lastPrice = parseFloat(fullPrice.toString()).toFixed(2);
+    setTotalPrice(lastPrice);
+    return lastPrice;
   }
 
   const values = {

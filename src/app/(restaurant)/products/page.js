@@ -68,7 +68,7 @@ export default function Products() {
             </span>)
           }
         </div>
-        <h3 className="">{currentCategory?.name}</h3>
+        <h3 className="category-title">{currentCategory?.name}</h3>
         <div className="products-list">
           {
             products
