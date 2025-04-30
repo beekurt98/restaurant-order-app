@@ -15,6 +15,7 @@ export default function Cart() {
 
   return (
     <>
+    <h2>Cart</h2>
       <div className="cart-items">
         {Object.keys(cartObj)?.map((x) => (
           <div className="cart-item" key={x}>
