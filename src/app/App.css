@@ -115,7 +115,14 @@ html {
   align-items: center;
   justify-content: space-between;
   font-size: 24px;
+  height: 70px;
   margin-top: 20px;
+  position: fixed;
+  width: 100%;
+  padding-inline: var(--inlinePx);
+  left: 0;
+  bottom: 70px;
+  background-color: white;
 }
 
 .auth-controls {
@@ -157,6 +164,7 @@ html {
   flex-shrink: 0;
   gap: 20px;
   padding-block: 20px;
+  margin-bottom: 20px;
 
   .product-item {
     min-width: 180px;
@@ -287,7 +295,7 @@ html {
   flex-direction: column;
   gap: 20px;
   overflow-y: scroll;
-  height: 85%;
+  padding-bottom: 150px;
 }
 
 .cart-item {
@@ -410,9 +418,14 @@ html {
 
 }
 
+.settings-page {
+  .auth-controls {
+    margin-top: 20px;
+  }
+}
+
 /* carousel */
 
-/* components/Carousel.css */
 .carousel-container {
   display: flex;
   flex-direction: column;
@@ -420,6 +433,7 @@ html {
   max-width: 800px;
   margin: 0 auto;
   position: relative;
+  margin-block: 15px;
 }
 
 .carousel {
@@ -498,7 +512,7 @@ html {
 .dots-container {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .dot {

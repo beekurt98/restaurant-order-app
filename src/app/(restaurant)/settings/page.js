@@ -7,10 +7,7 @@ import Link from "next/link";
 export default function Settings() {
   const { user } = useAuth();
   const firstName = user?.user_metadata?.name?.split(" ")[0];
-  const lastName = user?.user_metadata?.name?.split(" ").at(-1);
-
-  console.log(user);
-  
+  const lastName = user?.user_metadata?.name?.split(" ").at(-1);  
   
   async function signOut() {
     const { error } = await supabase.auth.signOut()
@@ -18,19 +15,23 @@ export default function Settings() {
 
   const pages = [
     {
-      "name": "Profile",
+      "name": "Account Information",
+      "icon": "",
       "path": "/profile",
       "id": 1,
     },{
       "name": "Addresses",
+      "icon": "",
       "path": "/addresses",
       "id": 2,
     },{
       "name": "Payment Methods",
+      "icon": "",
       "path": "/payment-methods",
       "id": 3,
     },{
       "name": "Password Management",
+      "icon": "",
       "path": "/password-management",
       "id": 4,
     }
@@ -42,7 +43,7 @@ export default function Settings() {
       <div className="page settings-page">
         <div className="settings-user-info">
           <img src={user ? `https://ui-avatars.com/api/?background=588157&color=fff&name=${firstName}+${lastName}`: "/logos/12.png"} alt="" />
-          <h2>{user?.user_metadata?.name}</h2>
+          <h2>{user ? user?.user_metadata?.name : "Welcome to Zen Ramen"}</h2>
           <p>{user?.email}</p>
         </div>
         <div className="setting-btns">

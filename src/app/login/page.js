@@ -1,14 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../components/AuthProvider';
+import PageHeader from '../components/PageHeader';
+import Input from '../components/Input';
 
 export default function Login() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const router = useRouter();
+
+  // useEffect(() => {
+  //   user && router.push('/profile')
+  // }, [])
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -28,17 +34,19 @@ export default function Login() {
   };
 
   return (
-    <div>
-      {user
-        ? "hello!" 
-        : <>
-          <h1>Login</h1>
-          <form onSubmit={handleLogin} autoComplete='off'>
-            <input placeholder="Email" name='email' /><br />
-            <input type="password" placeholder="Password" name='password' /><br />
-            <button>Login</button>
-          </form>
-        </>}
-    </div>
+    <>
+      <PageHeader name={"Logins"} />
+      <div className='page'>
+        {user
+          ? "hello!"
+          : <>
+            <form onSubmit={handleLogin} autoComplete='off'>
+              <Input name={"email"} type={"type"} placeholder={"Email"} /><br />
+              <Input name={"password"} type={"password"} placeholder={"Password"} /><br />
+              <button>Login</button>
+            </form>
+          </>}
+      </div>
+    </>
   );
 }
