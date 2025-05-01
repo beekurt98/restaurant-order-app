@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase";
 import { useCart } from "@/app/components/CartProvider";
 import PageHeader from "@/app/components/PageHeader";
+import SingleItem from "@/app/components/SingleItem";
 
 export default function Products() {
   const { cart, cartObj, setCartObj, addProductToCart, handleQuantityIncrease, handleQuantityDecrease } = useCart();
@@ -43,7 +44,7 @@ export default function Products() {
           id: item.id,
           quantity: 1,
           price: item.price,
-          img: item.img
+          img: item.img_url
         };
       }
     });
@@ -61,7 +62,6 @@ export default function Products() {
           {
             categories?.map(x => <span
               className={currentCategory?.id == x?.id ? "selected" : ""}
-              style={{ marginRight: "10px" }}
               onClick={() => setCurrentCategory(x)}
               key={x?.id}>
               {x?.name}
@@ -73,23 +73,7 @@ export default function Products() {
           {
             products
               ?.filter(x => x?.category_id == currentCategory?.id)
-              .map(x => <div className="product-item" key={x?.id}>
-                <img className="product-img" src={x?.img_url} />
-                <h3>{x?.name}</h3>
-                <div className="product-quantity-controls">
-                  <p>${x?.price}</p>
-                  {
-                    Object.keys(cartObj).includes(x.name)
-                      ?
-                      <div>
-                        <button className="cart-decrease-btn cart-quantity-control" onClick={() => handleQuantityDecrease(x)}>-</button>
-                        <span className="cart-quantity">{cartObj[x?.name]?.quantity}</span>
-                        <button className="cart-increase-btn cart-quantity-control" onClick={() => handleQuantityIncrease(x)}>+</button>
-                      </div>
-                      : <button className="add-to-cart-btn" onClick={() => addProductToCart(x)}>+</button>
-                  }
-                </div>
-              </div>)
+              .map(x => <SingleItem key={x.id} x={x} />)
           }
         </div>
       </div>

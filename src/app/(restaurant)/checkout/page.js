@@ -1,6 +1,7 @@
 "use client";
 import { useAuth } from "@/app/components/AuthProvider";
 import { useCart } from "@/app/components/CartProvider"
+import PageHeader from "@/app/components/PageHeader";
 import { supabase } from "@/lib/supabase"
 import { useRouter } from "next/navigation";
 
@@ -13,7 +14,8 @@ export default function Checkout() {
     const { data, error } = await supabase
       .from('orders')
       .insert([
-        { price_paid: totalPrice
+        {
+          price_paid: totalPrice
         },
       ])
       .select()
@@ -41,8 +43,10 @@ export default function Checkout() {
 
   return (
     <>
-      <h2>Checkout</h2>
-      <button onClick={completeOrder}>Complete Order</button>
+      <PageHeader name="Checkout" />
+      <div className="page">
+        <button onClick={completeOrder}>Complete Order</button>
+      </div>
     </>
   )
 }
