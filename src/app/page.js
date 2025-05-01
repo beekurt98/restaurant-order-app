@@ -41,13 +41,13 @@ export default function Home() {
           }
         </div>
 
-        {
+        {/* {
           !user
           && <div className="auth-controls">
             <Link href="/login">Login</Link>
             <Link href="/signup">Signup</Link>
           </div>
-        }
+        } */}
       </div>
     </>
   );

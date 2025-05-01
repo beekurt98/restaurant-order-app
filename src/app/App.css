@@ -89,7 +89,7 @@ html {
 .page {
   height: 90%;
   padding: 20px;
-  padding-top: 70px;
+  padding-block: 70px;
   overflow-y: scroll;
 }
 
@@ -386,6 +386,8 @@ html {
 
   img {
     border-radius: 50%;
+    width: 64px;
+    height: 64px;
   }
 }
 

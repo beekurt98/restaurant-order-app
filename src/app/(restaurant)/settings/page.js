@@ -39,9 +39,9 @@ export default function Settings() {
   return (
     <>
       <PageHeader name="Settings" />
-      <div className="page">
+      <div className="page settings-page">
         <div className="settings-user-info">
-          <img src={`https://ui-avatars.com/api/?background=588157&color=fff&name=${firstName}+${lastName}`} alt="" />
+          <img src={user ? `https://ui-avatars.com/api/?background=588157&color=fff&name=${firstName}+${lastName}`: "/logos/12.png"} alt="" />
           <h2>{user?.user_metadata?.name}</h2>
           <p>{user?.email}</p>
         </div>
