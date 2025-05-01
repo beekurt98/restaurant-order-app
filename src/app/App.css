@@ -90,7 +90,6 @@ html {
   height: 90%;
   padding: 20px;
   padding-block: 70px;
-  overflow-y: scroll;
 }
 
 .selected-page {
@@ -476,8 +475,9 @@ html {
   background: rgba(255, 255, 255, 0.5);
   border: none;
   color: #333;
-  font-size: 24px;
-  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px;
   cursor: pointer;
   border-radius: 12px;
   z-index: 10;
