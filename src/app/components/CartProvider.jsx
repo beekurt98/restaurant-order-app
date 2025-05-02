@@ -79,7 +79,7 @@ export default function CartProvider({ children }) {
           id: item.id,
           quantity: 1,
           price: item.price,
-          img: item.img_url,
+          img_url: item.img_url,
         };
       }
     });
