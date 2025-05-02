@@ -681,6 +681,7 @@ form {
 
   .price-info {
     width: 700px;
+    border-radius: 15px 15px 0 0;
   }
 
   .products-list {

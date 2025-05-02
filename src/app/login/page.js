@@ -11,6 +11,7 @@ import Link from 'next/link';
 
 export default function Login() {
   const [loading, setLoading] = useState(true);
+  const [warning, setWarning] = useState("");
   const { user } = useAuth();
   const router = useRouter();
 
@@ -29,7 +30,7 @@ export default function Login() {
     });
 
     if (error) {
-      console.log(error.message);
+      setWarning(error.message);
     } else {
       router.push('/');
     }
@@ -48,6 +49,9 @@ export default function Login() {
               <Input name={"password"} type={"password"} placeholder={"Password"} />
               <button>Login</button>
               <Link className='auth-other-btn' href={"/signup"}>Sign Up</Link>
+              <p style={{ textAlign: "center" }}>{
+                warning ? warning : ""
+              }</p>
             </form>
           </>}
       </div>

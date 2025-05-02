@@ -17,17 +17,22 @@ export default function Settings() {
       "icon": profileSvg,
       "path": "/profile",
       "id": 1,
-    },{
+    }, {
+      "name": "Orders",
+      "icon": orderSvg,
+      "path": "/orders",
+      "id": 5,
+    }, {
       "name": "Addresses",
       "icon": addressSvg,
       "path": "/addresses",
       "id": 2,
-    },{
+    }, {
       "name": "Payment Methods",
       "icon": paymentSvg,
       "path": "/payment-methods",
       "id": 3,
-    },{
+    }, {
       "name": "Password Management",
       "icon": passwordSvg,
       "path": "/password-management",
@@ -39,17 +44,19 @@ export default function Settings() {
     <>
       <PageHeader name="Settings" />
       <div className="page settings-page">
-        <UserInfo />
-        <div className="setting-btns">
-          {
-            pages.map(x => <Link className="link-btn" key={x.id} href={x.path}>{x.icon} {x.name}</Link>)
-          }
-        </div>
+        <UserInfo text="Chopsticks ready?" />
         {
           user
-            ? <div className="auth-controls sign-out-btn">
-              <button onClick={signOut}>{signOutSvg} Sign Out</button>
-            </div>
+            ? <>
+              <div className="setting-btns">
+                {
+                  pages.map(x => <Link className="link-btn" key={x.id} href={x.path}>{x.icon} {x.name}</Link>)
+                }
+              </div>
+              <div className="auth-controls sign-out-btn">
+                <button onClick={signOut}>{signOutSvg} Sign Out</button>
+              </div>
+            </>
             : <div className="auth-controls">
               <Link href="/login">Login</Link>
               <Link href="/signup">Signup</Link>
@@ -75,3 +82,5 @@ const pastSvg = <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" 
 const signOutSvg = <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Log_Out"> <path id="Vector" d="M12 15L15 12M15 12L12 9M15 12H4M9 7.24859V7.2002C9 6.08009 9 5.51962 9.21799 5.0918C9.40973 4.71547 9.71547 4.40973 10.0918 4.21799C10.5196 4 11.0801 4 12.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H12.1969C11.079 20 10.5192 20 10.0918 19.7822C9.71547 19.5905 9.40973 19.2839 9.21799 18.9076C9 18.4798 9 17.9201 9 16.8V16.75" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g> </g></svg>
 
 const loginSvg = <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M11 20H19C20.1046 20 21 19.1046 21 18V6C21 4.89543 20.1046 4 19 4H11M3 12H14M14 12L11 15M14 12L11 9" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>
+
+const orderSvg = <svg width="30px" height="30px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#000000" d="M832 384H576V128H192v768h640V384zm-26.496-64L640 154.496V320h165.504zM160 64h480l256 256v608a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V96a32 32 0 0 1 32-32zm160 448h384v64H320v-64zm0-192h160v64H320v-64zm0 384h384v64H320v-64z"></path></g></svg>

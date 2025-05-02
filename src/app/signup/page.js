@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useAuth } from '../components/AuthProvider';
 
 export default function Signup() {
+  const [warning, setWarning] = useState("");
   const { user } = useAuth();
   const router = useRouter();
 
@@ -21,7 +22,7 @@ export default function Signup() {
 
     const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
     if (error) {
-      console.log(error.message);
+      setWarning(error.message);
     } else {
       router.push('/');
     }
@@ -36,12 +37,15 @@ export default function Signup() {
           user
             ? router.push("/")
             : <form onSubmit={handleSignup} autoComplete='off'>
-            <Input type='email' placeholder="Email" name='email' />
-            <Input placeholder="Name" name='name' />
-            <Input type="password" placeholder="Password" name='password' />
-            <button>Sign Up</button>
-            <Link className='auth-other-btn' href={"/login"}>Log in</Link>
-          </form>
+              <Input type='email' placeholder="Email" name='email' />
+              <Input placeholder="Name" name='name' />
+              <Input type="password" placeholder="Password" name='password' />
+              <button>Sign Up</button>
+              <Link className='auth-other-btn' href={"/login"}>Log in</Link>
+              <p style={{ textAlign: "center" }}>{
+                warning ? warning : ""
+              }</p>
+            </form>
         }
 
       </div></>
