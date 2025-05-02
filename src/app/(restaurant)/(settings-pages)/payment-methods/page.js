@@ -5,9 +5,14 @@ export default function PaymentMethods() {
 
   return (
     <>
-      <PageHeader name={"Payment Methods"} />
+      <PageHeader name={"Payment Method"} />
       <div className="page">
-
+        <div className="card-mockup">
+          <p>**** **** **** **56
+            <br />
+            VISA
+          </p>
+        </div>
       </div>
     </>
   )

@@ -6,6 +6,8 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../components/AuthProvider';
 import PageHeader from '../components/PageHeader';
 import Input from '../components/Input';
+import UserInfo from '../components/UserInfo';
+import Link from 'next/link';
 
 export default function Login() {
   const [loading, setLoading] = useState(true);
@@ -29,21 +31,23 @@ export default function Login() {
     if (error) {
       console.log(error.message);
     } else {
-      router.push('/profile');
+      router.push('/');
     }
   };
 
   return (
     <>
-      <PageHeader name={"Logins"} />
+      <PageHeader name={"Login"} />
       <div className='page'>
+        <UserInfo text={"Back for another bowl of goodness?"} />
         {user
-          ? "hello!"
+          ? router.push("/")
           : <>
             <form onSubmit={handleLogin} autoComplete='off'>
-              <Input name={"email"} type={"type"} placeholder={"Email"} /><br />
-              <Input name={"password"} type={"password"} placeholder={"Password"} /><br />
+              <Input name={"email"} type={"type"} placeholder={"Email"} />
+              <Input name={"password"} type={"password"} placeholder={"Password"} />
               <button>Login</button>
+              <Link className='auth-other-btn' href={"/signup"}>Sign Up</Link>
             </form>
           </>}
       </div>

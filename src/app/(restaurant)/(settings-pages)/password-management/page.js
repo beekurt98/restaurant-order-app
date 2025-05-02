@@ -2,6 +2,7 @@
 
 import Input from "@/app/components/Input";
 import PageHeader from "@/app/components/PageHeader";
+import UserInfo from "@/app/components/UserInfo";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -30,12 +31,13 @@ export default function PasswordMgmt() {
   }
   return (
     <>
-      <PageHeader name={"Password Management"} />
+      <PageHeader name={"Password"} />
       <div className="page">
-        <form onSubmit={changePassword}>
-          <Input type="password" name={"password"} placeholder="password" />
-          <Input type="password" name={"password2"} placeholder="retype your password" />
-          <button className="link-btn">Change Password</button>
+        <UserInfo />
+        <form autoComplete="off" onSubmit={changePassword}>
+          <Input type="password" name={"password"} placeholder="Password" />
+          <Input type="password" name={"password2"} placeholder="Retype your password" />
+          <button>Change Password</button>
         </form>
       </div>
     </>

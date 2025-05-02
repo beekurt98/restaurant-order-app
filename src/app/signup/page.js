@@ -3,8 +3,14 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useRouter } from 'next/navigation';
+import PageHeader from '../components/PageHeader';
+import Input from '../components/Input';
+import UserInfo from '../components/UserInfo';
+import Link from 'next/link';
+import { useAuth } from '../components/AuthProvider';
 
 export default function Signup() {
+  const { user } = useAuth();
   const router = useRouter();
 
   async function handleSignup(e) {
@@ -13,24 +19,31 @@ export default function Signup() {
     const formObj = Object.fromEntries(formData);
     const { email, password, name } = formObj;
 
-    const { error } = await supabase.auth.signUp({ email, password, options: {data: {name}}});
+    const { error } = await supabase.auth.signUp({ email, password, options: { data: { name } } });
     if (error) {
       console.log(error.message);
     } else {
-      router.push('/login');
+      router.push('/');
     }
   };
 
   return (
-    <div>
-      <h1>Signup</h1>
-      <form onSubmit={handleSignup} autoComplete='off'>
-        <input placeholder="Email" name='email' /><br />
-        <input placeholder="Name" name='name' /><br />
-        <input type="password" placeholder="Password" name='password' /><br />
-        <button>Signup</button>
-      </form>
-      
-    </div>
+    <>
+      <PageHeader name={"Sign Up"} />
+      <div className='page'>
+        <UserInfo text='One small step for you, one giant leap for ramen-kind.' />
+        {
+          user
+            ? router.push("/")
+            : <form onSubmit={handleSignup} autoComplete='off'>
+            <Input type='email' placeholder="Email" name='email' />
+            <Input placeholder="Name" name='name' />
+            <Input type="password" placeholder="Password" name='password' />
+            <button>Sign Up</button>
+            <Link className='auth-other-btn' href={"/login"}>Log in</Link>
+          </form>
+        }
+
+      </div></>
   );
 }

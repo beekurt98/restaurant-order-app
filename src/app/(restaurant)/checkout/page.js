@@ -15,7 +15,7 @@ export default function Checkout() {
       .from('orders')
       .insert([
         {
-          price_paid: totalPrice
+          paid_price: totalPrice
         },
       ])
       .select()

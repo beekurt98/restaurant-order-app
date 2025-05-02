@@ -45,13 +45,13 @@ export default function Cart() {
             ))
             : <p>No items yet.</p>}
         </div>
+
+      </div>
         <div className="price-info">
           <p>Total: ${totalPrice}</p>
           <Link className="button" href={user ? "/checkout" : "/login"}>Checkout</Link>
 
         </div>
-
-      </div>
     </>
   );
 }

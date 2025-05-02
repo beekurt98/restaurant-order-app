@@ -1,4 +1,9 @@
-export default function Input({ type = "text", name, placeholder = "" }) {
+export default function Input({
+  type = "text",
+  name,
+  placeholder = "",
+  defaultVal = ""
+}) {
 
   return (
     <>
@@ -6,7 +11,8 @@ export default function Input({ type = "text", name, placeholder = "" }) {
         className="input-field"
         type={type}
         name={name}
-        placeholder={placeholder} />
+        placeholder={placeholder}
+        defaultValue={defaultVal} />
     </>
   )
 }

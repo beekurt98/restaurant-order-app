@@ -15,6 +15,7 @@ export default function Addresses() {
       let { data, error } = await supabase
         .from('addresses')
         .select('*')
+        .eq('user_id', user?.id)
       setAddresses(data);
 
     }
@@ -31,7 +32,6 @@ export default function Addresses() {
       .eq('id', id)
 
   }
-
 
   async function insertAddress(e) {
     e.preventDefault();
@@ -52,7 +52,7 @@ export default function Addresses() {
       .select()
 
     console.log(error);
-
+    setAddNew(false);
 
   }
 
@@ -63,22 +63,23 @@ export default function Addresses() {
         {
           addNew
             ? <NewAddressForm func={insertAddress} setAddNew={setAddNew} />
-            : <>
-              <div>
+            : (<>
+              <div className="address-list">
                 {
-                  addresses.map(x => <div key={x?.id}>
-                    <h3>{x?.title}</h3>
-                    <p>{x?.city}, {x?.state}, {x?.street_address}, {x?.address_line} </p>
-                    <div className="address-controls">
+                  addresses?.length > 0
+                    ? addresses?.map(x => <div className="address-item" key={x?.id}>
+                      <h3>{x?.title}</h3>
+                      <p>{x?.city}, {x?.state}, {x?.street_address}, {x?.address_line} </p>
+                      {/* <div className="address-controls">
                       <button>Update</button>
                       <button onClick={() => deleteAddress(x?.id)}>Delete</button>
-
-                    </div>
-                  </div>)
+                    </div> */}
+                    </div>)
+                    : <p style={{ textAlign: "center", marginBottom: "15px" }}>No addresses saved.</p>
                 }
               </div>
-              <button className="button" onClick={() => setAddNew(true)}>Add New</button>
-            </>
+              <button className="btn" onClick={() => setAddNew(true)}>Add New Address</button>
+            </>)
         }
       </div>
     </>
@@ -89,15 +90,18 @@ function NewAddressForm({ func, setAddNew }) {
 
   return (
     <>
-      <button onClick={() => setAddNew(false)}>Go Back</button>
-      <form className="new-address-form" onSubmit={func}>
-        <Input type="text" name="title" placeholder="title" />
-        <Input type="text" name="city" placeholder="city" />
-        <Input type="text" name="state" placeholder="state" />
-        <Input type="text" name="street_address" placeholder="Street Address" />
-        <Input type="text" name="address_line" placeholder="Address Line" />
-        <button className="order-button">Add</button>
-      </form>
+      <div className="form-cont">
+        <h3 style={{ marginBottom: "10px" }}>Add New Address</h3>
+        <form className="new-address-form" onSubmit={func}>
+          <Input type="text" name="title" placeholder="Title" />
+          <Input type="text" name="city" placeholder="City" />
+          <Input type="text" name="state" placeholder="State" />
+          <Input type="text" name="street_address" placeholder="Street Address" />
+          <Input type="text" name="address_line" placeholder="Address Line" />
+          <button type="submit" className="order-button">Add</button>
+          <button type="button" onClick={() => setAddNew(false)}>Go Back</button>
+        </form>
+      </div>
     </>
   )
 }
