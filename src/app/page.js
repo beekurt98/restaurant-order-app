@@ -6,24 +6,11 @@ import { useEffect, useState } from 'react';
 import SingleItem from './components/SingleItem';
 import { supabase } from '@/lib/supabase';
 import Carousel from './components/Carousel';
+import TrendingItems from './components/TrendingItems';
 
 export default function Home() {
   const { user, signOut } = useAuth();
-  const [trendingProducts, setTrendingProducts] = useState([]);
 
-  useEffect(() => {
-    async function getData() {
-      let { data: products, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('is_trending', 'TRUE')
-
-      setTrendingProducts(products);
-
-    }
-
-    getData();
-  }, [])
 
   return (
     <>
@@ -33,13 +20,9 @@ export default function Home() {
         <div className='section-header'>
           <h2>Trending Items</h2>
           <Link href="/products">See All</Link>
-
         </div>
-        <div className='home-trending-items'>
-          {
-            trendingProducts.map(x => <SingleItem x={x} hasQty={false} />)
-          }
-        </div>
+        <TrendingItems />
+        
 
         {/* {
           !user

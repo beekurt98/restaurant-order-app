@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { useCart } from "@/app/components/CartProvider";
 import PageHeader from "@/app/components/PageHeader";
 import SingleItem from "@/app/components/SingleItem";
+import Categories from "@/app/components/Categories";
 
 export default function Products() {
   const { cart, cartObj, setCartObj, addProductToCart, handleQuantityIncrease, handleQuantityDecrease } = useCart();
@@ -58,16 +59,7 @@ export default function Products() {
     <>
       <PageHeader name={"Products"} />
       <div className="page">
-        <div className="categories-list">
-          {
-            categories?.map(x => <span
-              className={currentCategory?.id == x?.id ? "selected" : ""}
-              onClick={() => setCurrentCategory(x)}
-              key={x?.id}>
-              {x?.name}
-            </span>)
-          }
-        </div>
+        <Categories categories={categories} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory} setCategories={setCategories} />
         <h3 className="category-title">{currentCategory?.name}</h3>
         <div className="products-list">
           {

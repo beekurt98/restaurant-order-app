@@ -116,6 +116,15 @@ html {
   }
 }
 
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .button {
   display: flex;
   background-color: var(--med);
@@ -314,6 +323,7 @@ html {
 }
 
 .category-title {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
