@@ -5,8 +5,8 @@ import './App.css'
 import { Toaster } from 'react-hot-toast';
 
 export const metadata = {
-  title: 'My App',
-  description: 'Simple Supabase Auth App',
+  title: 'Zen Ramen',
+  description: 'Restaurant app with Auth and CRUD',
 };
 
 export default function RootLayout({ children }) {
