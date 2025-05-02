@@ -17,20 +17,16 @@ export default function Addresses() {
         .select('*')
         .eq('user_id', user?.id)
       setAddresses(data);
-
     }
 
     getData();
   }, [])
-
-  console.log(user);
 
   async function deleteAddress(id) {
     const { error } = await supabase
       .from('addresses')
       .delete()
       .eq('id', id)
-
   }
 
   async function insertAddress(e) {
@@ -51,7 +47,6 @@ export default function Addresses() {
         }])
       .select()
 
-    console.log(error);
     setAddNew(false);
 
   }

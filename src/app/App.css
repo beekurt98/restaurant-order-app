@@ -816,6 +816,11 @@ form {
     margin: auto !important;
   }
 
+  form {
+    width: 70%;
+    margin: auto;
+  }
+
   .settings-page {
 
     a,
