@@ -59,7 +59,9 @@ html {
     flex-direction: column;
     align-items: center;
 
-    svg path, svg g, svg g path {
+    svg path,
+    svg g,
+    svg g path {
       fill: var(--lightest);
     }
   }
@@ -104,7 +106,9 @@ html {
 .selected-page {
   color: white !important;
 
-  svg path, svg g, svg g path {
+  svg path,
+  svg g,
+  svg g path {
     fill: white !important;
     stroke: white;
   }
@@ -124,18 +128,19 @@ html {
 }
 
 .price-info {
+  position: fixed;
+  bottom: 70px;
   display: flex;
-  /* margin-top: auto; */
   align-items: center;
   justify-content: space-between;
   font-size: 24px;
   height: 70px;
-  margin-top: 20px;
-  position: fixed;
-  width: 100%;
   padding-inline: var(--inlinePx);
-  bottom: 70px;
   background-color: var(--lightest);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .auth-controls {
@@ -170,7 +175,8 @@ html {
     font-size: 16px;
     height: 50px;
 
-    svg path, svg g {
+    svg path,
+    svg g {
       stroke: white;
     }
   }
@@ -580,8 +586,7 @@ html {
 
 /* input */
 
-.form-cont {
-}
+.form-cont {}
 
 form {
   width: 100%;
@@ -589,7 +594,8 @@ form {
   flex-direction: column;
   gap: 10px;
 
-  a, button {
+  a,
+  button {
     height: 40px;
     border-radius: 8px;
     background-color: var(--med);
@@ -677,12 +683,12 @@ form {
 
   .price-info {
     width: 700px;
-    margin: auto;
   }
-  
-.products-list {
-  grid-template-columns: repeat(3, 1fr);
-}
+
+  .products-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .navbar,
   .page-header {
     width: 800px !important;
