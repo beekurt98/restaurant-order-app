@@ -15,7 +15,7 @@ export default function PasswordMgmt() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { password, password2 } = Object.fromEntries(formData);
-    
+
     if (password !== password2) {
       setWarning("Passwords should match.");
       return;
@@ -24,6 +24,12 @@ export default function PasswordMgmt() {
     const { data, error } = await supabase.auth.updateUser({
       password: password
     })
+
+    if (error) {
+      setWarning(error.message);
+    } else {
+      router.push('/');
+    }
 
     router.push("/settings");
 
@@ -38,6 +44,9 @@ export default function PasswordMgmt() {
           <Input type="password" name={"password"} placeholder="Password" />
           <Input type="password" name={"password2"} placeholder="Retype your password" />
           <button>Change Password</button>
+          <p style={{ textAlign: "center" }}>{
+            warning ? warning : ""
+          }</p>
         </form>
       </div>
     </>

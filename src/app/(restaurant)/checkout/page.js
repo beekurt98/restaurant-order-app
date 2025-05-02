@@ -6,6 +6,8 @@ import { supabase } from "@/lib/supabase"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function Checkout() {
   const { cart, cartObj, totalPrice } = useCart();
@@ -13,6 +15,7 @@ export default function Checkout() {
   const [addresses, setAddresses] = useState([]);
   const [chosenAddress, setChosenAddress] = useState({});
   const addressSelectionRef = useRef(null);
+  const router = useRouter();
 
   async function completeOrder(e) {
     e.preventDefault();
@@ -42,7 +45,8 @@ export default function Checkout() {
     // order_details
     await supabase.from("order_details").insert(orderDetails).select();
 
-
+    toast("Order received!");
+    router.push("/");
     localStorage.removeItem("cart");
     localStorage.removeItem("cartObj");
   }
