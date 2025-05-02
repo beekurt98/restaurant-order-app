@@ -27,7 +27,7 @@ export default function Cart() {
           {cart.length > 0
             ? Object.keys(cartObj)?.map((x) => (
               <div className="cart-item" key={x}>
-                <img src={cartObj[x]?.img} alt={cartObj[x]?.name} />
+                <img src={cartObj[x]?.img_url} alt={cartObj[x]?.name} />
                 <div>
                   <h3>{cartObj[x]?.name}</h3>
                   <p className="item-price">Price: ${cartObj[x]?.price}</p>
