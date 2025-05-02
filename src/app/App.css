@@ -89,7 +89,7 @@ html {
 .page {
   height: 90%;
   padding: 20px;
-  padding-block: 70px;
+  padding-block: 80px;
 }
 
 .selected-page {
@@ -120,9 +120,8 @@ html {
   position: fixed;
   width: 100%;
   padding-inline: var(--inlinePx);
-  left: 0;
   bottom: 70px;
-  background-color: white;
+  background-color: var(--lightest);
 }
 
 .auth-controls {
@@ -133,15 +132,19 @@ html {
   a,
   button {
     height: 40px;
-    padding: 5px 25px;
+    padding: 5px 20px;
     background-color: var(--med);
     color: white;
     border-radius: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
+    font-weight: 600;
     width: 100%;
+
+    svg {
+      margin-right: 10px;
+    }
   }
 }
 
@@ -411,16 +414,19 @@ html {
   color: black;
   border-radius: 25px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   padding-inline: 20px;
 
+  svg {
+    margin-right: 10px;
+  }
 }
 
 .settings-page {
   .auth-controls {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
 
@@ -524,4 +530,50 @@ html {
 
 .active-dot {
   color: #333;
+}
+
+.page-header-wrapper,
+.navbar-wrapper {
+  width: 100%;
+  background-color: var(--dark);
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  z-index: 30;
+}
+
+.page-header-wrapper {
+  height: 60px;
+  top: 0;
+}
+
+.navbar-wrapper {
+  height: 70px;
+  bottom: 0;
+}
+
+@media screen and (min-width:800px) {
+  .page,
+  .price-info {
+    width: 700px !important;
+    margin: auto;
+  }
+
+  .navbar,
+  .page-header {
+    width: 800px !important;
+    margin: auto !important;
+  }
+
+  .settings-page {
+
+    a,
+    button {
+      width: 70%;
+      margin: auto;
+    }
+  }
+
+
 }
