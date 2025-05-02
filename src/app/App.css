@@ -313,7 +313,8 @@ html {
 
   img {
     height: 145px;
-    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
     border-radius: 15px 0 0 15px;
     object-fit: cover;
   }
