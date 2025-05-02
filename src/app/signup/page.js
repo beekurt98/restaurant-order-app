@@ -37,8 +37,8 @@ export default function Signup() {
           user
             ? router.push("/")
             : <form onSubmit={handleSignup} autoComplete='off'>
-              <Input type='email' placeholder="Email" name='email' />
               <Input placeholder="Name" name='name' />
+              <Input type='email' placeholder="Email" name='email' />
               <Input type="password" placeholder="Password" name='password' />
               <button>Sign Up</button>
               <Link className='auth-other-btn' href={"/login"}>Log in</Link>

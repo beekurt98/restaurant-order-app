@@ -59,7 +59,7 @@ export default function Settings() {
             </>
             : <div className="auth-controls">
               <Link href="/login">Login</Link>
-              <Link href="/signup">Signup</Link>
+              <Link href="/signup">Sign Up</Link>
             </div>
         }
       </div>

@@ -68,8 +68,8 @@ export default function TrendingItems() {
       <div className='home-trending-items'>
         {
           trendingProducts.map((x, index) =>
-            <div className="noselect"> 
-              <SingleItem key={index} x={x} hasQty={false} />
+            <div key={index} className="noselect"> 
+              <SingleItem x={x} hasQty={false} />
             </div>)
         }
       </div>
