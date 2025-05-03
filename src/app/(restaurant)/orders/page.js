@@ -32,7 +32,6 @@ export default function Orders() {
       `)
         .order('created_at', { ascending: false })
       setOrders(data);
-      console.log(error);
 
     }
 

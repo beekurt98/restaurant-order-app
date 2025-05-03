@@ -29,8 +29,19 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+    async function updateUser(e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const { email, name } = Object.fromEntries(formData);
+      const { data, error } = await supabase.auth.updateUser({
+        email,
+        data: { name }
+      })
+  
+    }
+
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

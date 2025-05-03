@@ -61,7 +61,6 @@ export default function Checkout() {
 
     }
     getAddr();
-    console.log(cart, cartObj)
   }, [])
 
   function handleAddressSelection(addr) {
