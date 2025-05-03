@@ -43,7 +43,7 @@ export default function CartProvider({ children }) {
       return updatedCart;
     });
     toastit("Product added to cart.", 750);
-  }
+  }  
 
   function handleQuantityDecrease(product) {
     setCart((prev) => {
