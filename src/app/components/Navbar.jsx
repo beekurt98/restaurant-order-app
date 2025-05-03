@@ -11,8 +11,8 @@ export default function Navbar() {
   const [cartQty, setCartQty] = useState(0);
 
   useEffect(() => {
-    setCartQty(Object.keys(cartObj).length);
-  }, [cart, cartObj])
+    setCartQty(cart.length);
+  }, [cart])
 
   useEffect(() => {
     setActivePath(pathname);
