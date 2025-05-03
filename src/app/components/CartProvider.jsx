@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-
+import { toastit } from "./helper";
 const CartContext = createContext();
 
 export default function CartProvider({ children }) {
@@ -42,6 +42,7 @@ export default function CartProvider({ children }) {
       }
       return updatedCart;
     });
+    toastit("Product added to cart.", 750);
   }
 
   function handleQuantityDecrease(product) {
@@ -56,6 +57,7 @@ export default function CartProvider({ children }) {
       }
       return updatedCart;
     });
+    toastit("Product removed from cart.", 750);
   }
 
   function addProductToCart(product) {
@@ -66,6 +68,7 @@ export default function CartProvider({ children }) {
       }
       return updatedCart;
     });
+    toastit("Product added to cart.", 750);
   }
 
   function updateCartObj() {

@@ -2,10 +2,22 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCart } from "./CartProvider";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [activePath, setActivePath] = useState("");
+  const { cart, cartObj } = useCart();
+  const [cartQty, setCartQty] = useState(0);
+
+  useEffect(() => {
+    setCartQty(Object.keys(cartObj).length);
+  }, [cart, cartObj])
+
+  console.log(cartQty);
+  
+
+  
 
   useEffect(() => {
     setActivePath(pathname);
@@ -17,7 +29,7 @@ export default function Navbar() {
       <div className="navbar">
         <Link className={activePath === "/" ? "selected-page" : ""} href="/">{homeSvg} Home</Link>
         <Link className={activePath === "/products" ? "selected-page" : ""} href="/products">{productsSvg} Products</Link>
-        <Link className={activePath === "/cart" ? "selected-page" : ""} href="/cart">{cartSvg} Cart</Link>
+        <Link className={activePath === "/cart" ? "selected-page" : ""} href="/cart">{cartSvg} Cart {cartQty > 0 && <span className="navbar-cart-qty">{cartQty}</span>}</Link>
         {/* <Link className={activePath === "/orders" ? "selected-page" : ""} href="/orders">{orderSvg} Orders</Link> */}
         <Link className={activePath === "/settings" ? "selected-page" : ""} href="/settings">{settingsSvg} Settings</Link>
       </div>
