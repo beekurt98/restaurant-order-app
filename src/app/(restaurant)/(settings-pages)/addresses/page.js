@@ -34,19 +34,19 @@ export default function Addresses() {
     const formData = new FormData(e.target);
     const formObj = Object.fromEntries(formData);
     const { title, city, state, street_address, address_line } = formObj;
-    const { data, error } = await supabase
-      .from('addresses')
-      .insert([
-        {
+    const newAddress = {
           title,
           city,
           state,
           street_address,
           address_line,
           user_id: user?.id
-        }])
+        }
+    const { data, error } = await supabase
+      .from('addresses')
+      .insert([newAddress])
       .select()
-
+    setAddresses(prev => [...prev, newAddress])
     setAddNew(false);
 
   }

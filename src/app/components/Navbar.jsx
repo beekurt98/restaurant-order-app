@@ -14,18 +14,12 @@ export default function Navbar() {
     setCartQty(Object.keys(cartObj).length);
   }, [cart, cartObj])
 
-  console.log(cartQty);
-  
-
-  
-
   useEffect(() => {
     setActivePath(pathname);
   }, [pathname]);
 
   return (
     <div className="navbar-wrapper">
-      
       <div className="navbar">
         <Link className={activePath === "/" ? "selected-page" : ""} href="/">{homeSvg} Home</Link>
         <Link className={activePath === "/products" ? "selected-page" : ""} href="/products">{productsSvg} Products</Link>

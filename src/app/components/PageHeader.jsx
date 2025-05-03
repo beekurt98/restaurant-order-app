@@ -11,7 +11,7 @@ export default function PageHeader({ name }) {
       <div className="page-header-wrapper">
         <div className="page-header">
           <Link href={"/"}>
-            <img style={{ height: "50px", width: "50px" }} src="logos/3.png" />
+            <img style={{ height: "50px", width: "50px" }} src="/logos/3.png" />
           </Link>
           <h2>{name}</h2>
           <Link href="/profile">

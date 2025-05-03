@@ -69,7 +69,7 @@ export default function TrendingItems() {
         {
           trendingProducts.map((x, index) =>
             <div key={index} className="noselect"> 
-              <SingleItem x={x} hasQty={false} />
+              <SingleItem x={x} hasQty={false} inProducts={false} />
             </div>)
         }
       </div>

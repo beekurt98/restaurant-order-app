@@ -12,7 +12,7 @@ export default function CartProvider({ children }) {
     }
     return [];
   });
-  
+
   const [cartObj, setCartObj] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedCartObj = localStorage.getItem("cartObj");
@@ -20,7 +20,7 @@ export default function CartProvider({ children }) {
     }
     return {};
   });
-  
+
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function CartProvider({ children }) {
       return updatedCart;
     });
     toastit("Product added to cart.", 750);
-  }  
+  }
 
   function handleQuantityDecrease(product) {
     setCart((prev) => {
@@ -92,7 +92,7 @@ export default function CartProvider({ children }) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }
-
+  
   function calculatePrice() {
     let fullPrice = 0;
     cart.forEach((x) => (fullPrice += x.price));
@@ -102,14 +102,14 @@ export default function CartProvider({ children }) {
   }
 
   const values = {
-    cart, 
-    setCart, 
-    cartObj, 
-    setCartObj, 
-    capitalize, 
-    addProductToCart, 
-    handleQuantityIncrease, 
-    handleQuantityDecrease, 
+    cart,
+    setCart,
+    cartObj,
+    setCartObj,
+    capitalize,
+    addProductToCart,
+    handleQuantityIncrease,
+    handleQuantityDecrease,
     updateCartObj,
     calculatePrice,
     totalPrice

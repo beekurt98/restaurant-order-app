@@ -7,49 +7,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { completeOrder } from "@/app/components/helper";
 
 export default function Checkout() {
-  const { cart, cartObj, totalPrice } = useCart();
+  const { cart, cartObj, totalPrice, completeOrder } = useCart();
   const { user } = useAuth();
   const [addresses, setAddresses] = useState([]);
   const [chosenAddress, setChosenAddress] = useState({});
   const addressSelectionRef = useRef(null);
   const router = useRouter();
 
-  async function completeOrder(e) {
-    e.preventDefault();
-    // order
-    const { data, error } = await supabase
-      .from('orders')
-      .insert([
-        {
-          paid_price: totalPrice
-        },
-      ])
-      .select()
-
-
-    if (error) {
-      console.error("Order insert error:", error);
-      return;
-    }
-
-    const orderDetails = cart.map((item) => {
-      return {
-        order_id: data[0].id,
-        product_id: item.id,
-      };
-    });
-
-    // order_details
-    await supabase.from("order_details").insert(orderDetails).select();
-
-    toast("Order received!");
-    router.push("/");
-    localStorage.removeItem("cart");
-    localStorage.removeItem("cartObj");
-  }
 
   useEffect(() => {
     async function getAddr() {
@@ -111,7 +78,7 @@ export default function Checkout() {
 
         <dialog ref={addressSelectionRef}>
           {
-            addresses?.map(x => <div>
+            addresses?.map((x, index) => <div key={index}>
               <h4>{x?.title}</h4>
               <p>{x?.city}, {x?.state}, {x?.street_address}, {x?.address_line}</p>
               <button onClick={() => handleAddressSelection(x)}>Select this</button>

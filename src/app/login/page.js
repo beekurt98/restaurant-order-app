@@ -42,7 +42,7 @@ export default function Login() {
       <div className='page'>
         <UserInfo text={"Back for another bowl of goodness?"} />
         {user
-          ? router.push("/")
+          ? ""
           : <>
             <form onSubmit={handleLogin} autoComplete='off'>
               <Input name={"email"} type={"type"} placeholder={"Email"} />

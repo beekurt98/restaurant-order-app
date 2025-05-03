@@ -1,16 +1,19 @@
 "use client";
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { supabase } from "@/lib/supabase";
 import { useCart } from "@/app/components/CartProvider";
 import PageHeader from "@/app/components/PageHeader";
 import SingleItem from "@/app/components/SingleItem";
 import Categories from "@/app/components/Categories";
+import ProductDialog from "@/app/components/ProductDialog";
 
 export default function Products() {
   const { cart, cartObj, setCartObj, addProductToCart, handleQuantityIncrease, handleQuantityDecrease } = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [currentCategory, setCurrentCategory] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const productRef = useRef();
 
   useEffect(() => {
     async function getData() {
@@ -55,6 +58,12 @@ export default function Products() {
     localStorage.setItem("cartObj", JSON.stringify(newCartObj));
   }, [cart]);
 
+  function selectProduct(x) {
+    productRef.current.showModal();
+    setSelectedProduct(x);
+
+  }
+
   return (
     <>
       <PageHeader name={"Products"} />
@@ -65,9 +74,10 @@ export default function Products() {
           {
             products
               ?.filter(x => x?.category_id == currentCategory?.id)
-              .map(x => <SingleItem key={x.id} x={x} />)
+              .map(x => <SingleItem selectProduct={selectProduct} key={x.id} x={x} />)
           }
         </div>
+        <ProductDialog selectedProduct={selectedProduct} productRef={productRef} />
       </div>
     </>
   )
