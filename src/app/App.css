@@ -76,15 +76,17 @@ html {
   top: -5px;
   position: absolute;
   background-color: rgb(255, 255, 225);
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  text-align: center;
+  color: #344E41;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* page */
@@ -391,9 +393,22 @@ html {
 }
 
 .empty-cart-btn {
-  background-color: var(--lightest) !important;
-  color: var(--dark) !important;
-  font-weight: 700 !important;
+  color: var(--dark);
+  font-weight: 700;
+  padding: 20px 20px;
+  border-radius: 4px;
+  margin: auto;
+  height: 30px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 18px;
+
+  svg g, svg path, svg g path {
+    stroke: var(--dark)
+  }
 }
 
 /* orders */
