@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 export default function Checkout() {
-  const { cart, cartObj, totalPrice } = useCart();
+  const { cart, cartObj, totalPrice, setCart } = useCart();
   const { user } = useAuth();
   const [addresses, setAddresses] = useState([]);
   const [chosenAddress, setChosenAddress] = useState({});
@@ -65,6 +65,7 @@ export default function Checkout() {
 
     toastit("Order received!", 1250);
     router.push("/");
+    setCart([]);
     localStorage.removeItem("cart");
     localStorage.removeItem("cartObj");
   }
