@@ -7,10 +7,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import { completeOrder } from "@/app/components/helper";
 
 export default function Checkout() {
-  const { cart, cartObj, totalPrice, completeOrder } = useCart();
+  const { cart, cartObj, totalPrice } = useCart();
   const { user } = useAuth();
   const [addresses, setAddresses] = useState([]);
   const [chosenAddress, setChosenAddress] = useState({});
@@ -33,6 +32,41 @@ export default function Checkout() {
   function handleAddressSelection(addr) {
     setChosenAddress(addr);
     addressSelectionRef.current.close();
+  }
+
+  async function completeOrder(e) {
+    e.preventDefault();
+    // order
+    const { data, error } = await supabase
+      .from('orders')
+      .insert([
+        {
+          paid_price: totalPrice,
+          address_id: chosenAddress?.id
+        },
+      ])
+      .select()
+
+
+    if (error) {
+      console.error("Order insert error:", error);
+      return;
+    }
+
+    const orderDetails = cart.map((item) => {
+      return {
+        order_id: data[0].id,
+        product_id: item.id,
+      };
+    });
+
+    // order_details
+    await supabase.from("order_details").insert(orderDetails).select();
+
+    toast("Order received!");
+    router.push("/");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("cartObj");
   }
 
 

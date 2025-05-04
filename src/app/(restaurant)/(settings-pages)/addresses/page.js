@@ -11,31 +11,27 @@ export default function Addresses() {
   const [addresses, setAddresses] = useState([]);
   const { user } = useAuth();
   const [currentSection, setCurrentSection] = useState("AddressesList");
-  const [currentAddress, setCurrentAddress] = useState({}); 
+  const [currentAddress, setCurrentAddress] = useState({});
   const [loading, setLoading] = useState(true);
 
   const sections = {
-    "AddressesList": <AddressesList 
-                        addresses={addresses} 
-                        setCurrentSection={setCurrentSection} 
-                        setCurrentAddress={setCurrentAddress} 
-                        deleteAddress={deleteAddress}
-                      />,
-    "AddNew": <NewAddressForm 
-                title={"Add New Address"} 
-                func={insertAddress} 
-                setCurrentSection={setCurrentSection} 
-              />,
-    "EditAddress": <NewAddressForm 
-                    title={"Update Address"} 
-                    func={updateAddress} 
-                    setCurrentSection={setCurrentSection} 
-                    isEditing={true} 
-                    currentAddress={currentAddress} 
-                  />
+    "AddressesList": <AddressesList
+      addresses={addresses}
+      setCurrentSection={setCurrentSection}
+      setCurrentAddress={setCurrentAddress}
+      deleteAddress={deleteAddress} />,
+    "AddNew": <NewAddressForm
+      title={"Add New Address"}
+      func={insertAddress}
+      setCurrentSection={setCurrentSection} />,
+    "EditAddress": <NewAddressForm
+      title={"Update Address"}
+      func={updateAddress}
+      setCurrentSection={setCurrentSection}
+      isEditing={true}
+      currentAddress={currentAddress} />
   }
 
-  // Fetch addresses whenever user changes or component mounts
   useEffect(() => {
     async function getData() {
       if (user?.id) {
@@ -44,7 +40,7 @@ export default function Addresses() {
           .from('addresses')
           .select('*')
           .eq('user_id', user.id);
-        
+
         if (data) {
           setAddresses(data);
         } else if (error) {
@@ -64,9 +60,8 @@ export default function Addresses() {
       .from('addresses')
       .delete()
       .eq('id', id);
-    
+
     if (!error) {
-      // Update local state after successful deletion
       setAddresses(prev => prev.filter(address => address.id !== id));
     } else {
       console.error("Error deleting address:", error);
@@ -90,7 +85,7 @@ export default function Addresses() {
       .from('addresses')
       .insert([newAddress])
       .select();
-    
+
     if (data && data.length > 0) {
       setAddresses(prev => [...prev, data[0]]);
     } else if (error) {
@@ -111,24 +106,23 @@ export default function Addresses() {
       street_address,
       address_line
     }
-    
+
     const { data, error } = await supabase
       .from('addresses')
       .update(updatedAddress)
       .eq('id', currentAddress?.id)
       .select();
-    
+
     if (data && data.length > 0) {
-      // Update addresses state with the updated address
-      setAddresses(prev => 
-        prev.map(address => 
+      setAddresses(prev =>
+        prev.map(address =>
           address.id === currentAddress.id ? data[0] : address
         )
       );
     } else if (error) {
       console.error("Error updating address:", error);
     }
-    
+
     setCurrentSection("AddressesList");
   }
 
@@ -175,7 +169,7 @@ function AddressesList({ addresses, setCurrentSection, setCurrentAddress, delete
               <h3>{x?.title}</h3>
               <p>{x?.city}, {x?.state}, {x?.street_address}, {x?.address_line} </p>
               <div className="address-controls">
-                <button onClick={() => {setCurrentSection("EditAddress"); setCurrentAddress(x);}}>{updateSvg}</button>
+                <button onClick={() => { setCurrentSection("EditAddress"); setCurrentAddress(x); }}>{updateSvg}</button>
                 <button onClick={() => deleteAddress(x?.id)}>{deleteSvg}</button>
               </div>
             </div>)
