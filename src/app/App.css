@@ -175,6 +175,15 @@ html {
   right: 0;
   margin: 0 auto;
   width: 100%;
+
+  a, button {
+    height: 45px !important;
+    width: 150px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+  }
 }
 
 .auth-controls {
@@ -184,7 +193,7 @@ html {
 
   a,
   button {
-    height: 50px;
+    height: 40px;
     padding: 5px 20px;
     background-color: var(--med);
     color: white;
@@ -192,8 +201,10 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
+    font-weight: 600;    
     width: 100%;
+    /* width: 80%;
+    margin: auto; */
 
     svg {
       margin-right: 10px;
