@@ -1,12 +1,12 @@
 "use client";
 import { useAuth } from "@/app/components/AuthProvider";
 import { useCart } from "@/app/components/CartProvider"
+import { toastit } from "@/app/components/helper";
 import PageHeader from "@/app/components/PageHeader";
 import { supabase } from "@/lib/supabase"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
 
 export default function Checkout() {
   const { cart, cartObj, totalPrice } = useCart();
@@ -63,7 +63,7 @@ export default function Checkout() {
     // order_details
     await supabase.from("order_details").insert(orderDetails).select();
 
-    toast("Order received!");
+    toastit("Order received!", 1250);
     router.push("/");
     localStorage.removeItem("cart");
     localStorage.removeItem("cartObj");
