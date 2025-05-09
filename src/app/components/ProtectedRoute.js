@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from './AuthProvider';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthProvider";
 
 export default function ProtectedRoute({ children }) {
   const { user } = useAuth();
@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [user]);
 
