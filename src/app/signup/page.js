@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import Input from "../components/Input";
 import UserInfo from "../components/UserInfo";
