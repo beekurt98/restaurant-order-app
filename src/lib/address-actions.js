@@ -20,8 +20,30 @@ export async function getAddresses() {
   }
 }
 
-export function insertAddresses() {}
+export async function insertAddresses(newAddress) {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-export function updateAddresses() {}
+  const address = { ...newAddress, user_id: user.id };
+  const { data, error } = await supabase
+    .from("addresses")
+    .insert([address])
+    .select();
 
-export function deleteAddresses() {}
+  return { data, error };
+}
+
+export async function updateAddresses(updatedAddress, currentAddresssId) {
+  const { data, error } = await supabase
+    .from("addresses")
+    .update(updatedAddress)
+    .eq("id", currentAddresssId)
+    .select();
+  return { data, error };
+}
+
+export async function deleteAddresses(id) {
+  const { error } = await supabase.from("addresses").delete().eq("id", id);
+  return error;
+}

@@ -11,7 +11,7 @@ export default async function login(prevState, queryData) {
   if (email.trim() === "") {
     return {
       success: false,
-      error: "Can't be empty",
+      error: "Email can't be empty",
       type: "email",
     };
   }
@@ -19,7 +19,7 @@ export default async function login(prevState, queryData) {
   if (password.trim() === "") {
     return {
       success: false,
-      error: "Can't be empty",
+      error: "Password can't be empty",
       type: "password",
     };
   }

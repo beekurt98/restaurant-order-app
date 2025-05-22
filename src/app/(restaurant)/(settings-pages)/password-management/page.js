@@ -3,38 +3,37 @@
 import Input from "@/app/components/Input";
 import PageHeader from "@/app/components/PageHeader";
 import UserInfo from "@/app/components/UserInfo";
-import { supabase } from "@/lib/supabase";
+import changePassword from "@/lib/change-password-action";
+import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { changePassword } from "@/app/components/helper";
+import { useActionState, useEffect, useState } from "react";
 
 export default function PasswordMgmt() {
+  const [state, formAction, pending] = useActionState(changePassword, null);
   const [warning, setWarning] = useState("");
-  const router = useRouter();
 
-  function handlePasswordChange(e) {
-    const passwordResponse = changePassword(e);
-    setWarning(passwordResponse);
-    if (passwordResponse == "SUCCESS") {
-      router.push("/settings");
+  useEffect(() => {
+    if (state?.error) {
+      setWarning(state.error);
     }
-  }
-
+  }, [state]);
 
   return (
     <>
       <PageHeader name={"Password"} />
       <div className="page">
         <UserInfo />
-        <form autoComplete="off" onSubmit={handlePasswordChange}>
+        <form autoComplete="off" action={formAction}>
           <Input type="password" name={"password"} placeholder="Password" />
-          <Input type="password" name={"password2"} placeholder="Retype your password" />
+          <Input
+            type="password"
+            name={"password2"}
+            placeholder="Confirm your password"
+          />
           <button>Change Password</button>
-          <p style={{ textAlign: "center" }}>{
-            warning ? warning : ""
-          }</p>
+          <p style={{ textAlign: "center" }}>{warning ? warning : ""}</p>
         </form>
       </div>
     </>
-  )
+  );
 }

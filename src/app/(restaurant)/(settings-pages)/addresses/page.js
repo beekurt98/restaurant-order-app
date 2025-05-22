@@ -1,20 +1,24 @@
 "use client";
 import PageHeader from "@/app/components/PageHeader";
-import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { useEffect, useRef, useState } from "react";
 import Input from "@/app/components/Input";
 import { useAuth } from "@/app/components/AuthProvider";
 import { deleteSvg } from "../../cart/page";
-import { getAddresses } from "@/lib/address-actions";
+import {
+  deleteAddresses,
+  getAddresses,
+  insertAddresses,
+  updateAddresses,
+} from "@/lib/address-actions";
 import { createClient } from "@/utils/supabase/client";
+import DeleteDialog from "@/app/components/deleteDialog";
 
 export default function Addresses() {
-  const [isEditing, setEditing] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [currentSection, setCurrentSection] = useState("AddressesList");
   const [currentAddress, setCurrentAddress] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const { user } = useAuth();
+  const deleteRef = useRef(null);
 
   const sections = {
     AddressesList: (
@@ -22,20 +26,20 @@ export default function Addresses() {
         addresses={addresses}
         setCurrentSection={setCurrentSection}
         setCurrentAddress={setCurrentAddress}
-        deleteAddress={deleteAddress}
+        deleteRef={deleteRef}
       />
     ),
     AddNew: (
       <NewAddressForm
         title={"Add New Address"}
-        func={insertAddress}
+        func={handleInsertAddress}
         setCurrentSection={setCurrentSection}
       />
     ),
     EditAddress: (
       <NewAddressForm
         title={"Update Address"}
-        func={updateAddress}
+        func={handleUpdateAddress}
         setCurrentSection={setCurrentSection}
         isEditing={true}
         currentAddress={currentAddress}
@@ -44,21 +48,16 @@ export default function Addresses() {
   };
 
   useEffect(() => {
-    const supabase = createClient();
-
     async function getData() {
       const addressData = await getAddresses();
       setAddresses(addressData);
-
-      const user = await supabase.auth.getUser();
-      setUser(user);
     }
 
     getData();
   }, [user]);
 
-  async function deleteAddress(id) {
-    const { error } = await supabase.from("addresses").delete().eq("id", id);
+  async function handleDeleteAddress(id) {
+    const error = await deleteAddresses(id);
 
     if (!error) {
       setAddresses((prev) => prev.filter((address) => address.id !== id));
@@ -67,7 +66,7 @@ export default function Addresses() {
     }
   }
 
-  async function insertAddress(e) {
+  async function handleInsertAddress(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObj = Object.fromEntries(formData);
@@ -78,13 +77,10 @@ export default function Addresses() {
       state,
       street_address,
       address_line,
-      user_id: user?.id,
     };
-    const { data, error } = await supabase
-      .from("addresses")
-      .insert([newAddress])
-      .select();
+    const { data, error } = insertAddresses(newAddress);
 
+    console.error("Error adding address:", error);
     if (data && data.length > 0) {
       setAddresses((prev) => [...prev, data[0]]);
     } else if (error) {
@@ -93,7 +89,7 @@ export default function Addresses() {
     setCurrentSection("AddressesList");
   }
 
-  async function updateAddress(e) {
+  async function handleUpdateAddress(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const formObj = Object.fromEntries(formData);
@@ -104,13 +100,13 @@ export default function Addresses() {
       state,
       street_address,
       address_line,
+      user_id: user?.id,
     };
 
-    const { data, error } = await supabase
-      .from("addresses")
-      .update(updatedAddress)
-      .eq("id", currentAddress?.id)
-      .select();
+    const { data, error } = await updateAddresses(
+      updatedAddress,
+      currentAddress?.id
+    );
 
     if (data && data.length > 0) {
       setAddresses((prev) =>
@@ -129,6 +125,10 @@ export default function Addresses() {
     <>
       <PageHeader name={"Addresses"} />
       <div className="page">{sections[currentSection]}</div>
+      <DeleteDialog
+        deleteRef={deleteRef}
+        handleDeleteAddress={handleDeleteAddress}
+      />
     </>
   );
 }
@@ -194,7 +194,7 @@ function AddressesList({
   addresses,
   setCurrentSection,
   setCurrentAddress,
-  deleteAddress,
+  deleteRef,
 }) {
   return (
     <>
@@ -215,7 +215,7 @@ function AddressesList({
                 >
                   {updateSvg}
                 </button>
-                <button onClick={() => deleteAddress(x?.id)}>
+                <button onClick={() => deleteRef.current.showModal()}>
                   {deleteSvg}
                 </button>
               </div>
