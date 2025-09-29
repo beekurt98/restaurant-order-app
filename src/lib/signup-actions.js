@@ -17,13 +17,13 @@ export default async function signUp(prevState, queryData) {
     };
   }
 
-  if (password !== passwordConfirmation) {
-    return {
-      success: false,
-      error: "Passwords don't match",
-      type: "password",
-    };
-  }
+  // if (password !== passwordConfirmation) {
+  //   return {
+  //     success: false,
+  //     error: "Passwords don't match",
+  //     type: "password",
+  //   };
+  // }
 
   if (password.length < 8) {
     return {
